@@ -2,14 +2,15 @@
 <html>
 <head>
 <title>Miss Fiction 💕</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
 body{
  margin:0;
  text-align:center;
  background:linear-gradient(120deg,#ffdde1,#ee9ca7,#fbc2eb);
- font-family:Arial;
+ font-family:Arial, sans-serif;
  height:100vh;
- overflow:hidden;
+ overflow-x:hidden;
  animation:bgMove 8s infinite alternate;
 }
 
@@ -18,15 +19,17 @@ body{
  100%{background-position:right;}
 }
 
-.container{ margin-top:60px; }
+.container{ margin-top:50px; padding:10px; }
 
 .question-box{
  background:white;
- width:65%;
- margin:auto;
+ width:90%;
+ max-width:400px;
+ margin:20px auto;
  padding:20px;
  border-radius:20px;
  box-shadow:0 0 10px pink;
+ font-size:1rem;
 }
 
 button{
@@ -34,7 +37,7 @@ button{
  margin:10px;
  border:none;
  border-radius:15px;
- font-size:18px;
+ font-size:1rem;
  cursor:pointer;
 }
 
@@ -46,13 +49,20 @@ button{
 h1{
  color:#b71c1c;
  animation:glow 1.5s infinite alternate;
+ font-size:2rem;
+ margin:10px 0;
 }
 
-/* Floating hearts */
+p{ font-size:1rem; }
+
+textarea{
+ font-size:1rem;
+}
+
 .heart{
  position:absolute;
  bottom:-50px;
- font-size:30px;
+ font-size:25px;
  animation:floatUp 6s linear infinite;
 }
 
@@ -64,6 +74,17 @@ h1{
 @keyframes floatUp{
  from{transform:translateY(0);opacity:1;}
  to{transform:translateY(-900px);opacity:0;}
+}
+
+/* Mobile tweaks */
+@media (max-width:500px){
+ .question-box{ width:95%; padding:15px; }
+ button{ font-size:1rem; padding:10px 15px; }
+ h1{ font-size:1.8rem; }
+ textarea{ font-size:0.95rem; }
+ #startScreen h1{ font-size:2rem; }
+ #startScreen p{ font-size:1rem; }
+ #startScreen button{ font-size:50px; }
 }
 </style>
 </head>
@@ -82,11 +103,9 @@ justify-content:center;
 align-items:center;
 z-index:1000;">
 <h1>Miss Fiction 💕</h1>
-<p style="font-size:20px;">Tap the heart to enter…</p>
+<p>Tap the heart to enter…</p>
 <button onclick="startSite()" 
-style="font-size:60px;background:none;border:none;cursor:pointer;">
-💖
-</button>
+style="background:none;border:none;cursor:pointer;">💖</button>
 </div>
 
 <audio id="bgMusic" loop>
@@ -131,20 +150,22 @@ style="font-size:60px;background:none;border:none;cursor:pointer;">
 <div id="q5" class="question-box">
 <h2>One last thing 💌</h2>
 <p>Write something sweet for me:</p>
-<textarea id="herMsg" rows="4" style="width:90%; padding:10px;"></textarea>
+<textarea id="herMsg" rows="4"></textarea>
 <br><br>
 <button class="yes" onclick="saveMessage()">Send & Continue 💕</button>
 </div>
 
 <!-- FINAL VALENTINE SECTION -->
-<div id="finalSection">
+<div id="finalSection" class="question-box">
 <h2>You passed the love test 😍</h2>
 <h2>Now answer seriously…</h2>
 <h1>Will you be my Valentine, Miss Fiction? 💗</h1>
 <button class="yes" onclick="yesClicked()">Yes — Lifetime 😍</button>
 <button class="no" onclick="noClicked()">No 😅</button>
 
-<p id="message" style="font-size:22px;color:#d63384;"></p>
+<p id="message" style="font-size:1rem;color:#d63384;"></p>
+</div>
+
 </div>
 
 <script>
