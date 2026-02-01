@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Miss Fiction 💕</title>
+<style>
+body{
+ margin:0;
+ text-align:center;
+ background:linear-gradient(120deg,#ffdde1,#ee9ca7,#fbc2eb);
+ font-family:Arial;
+ height:100vh;
+ overflow:hidden;
+ animation:bgMove 8s infinite alternate;
+}
+
+@keyframes bgMove{
+ 0%{background-position:left;}
+ 100%{background-position:right;}
+}
+
+.container{ margin-top:60px; }
+
+.question-box{
+ background:white;
+ width:65%;
+ margin:auto;
+ padding:20px;
+ border-radius:20px;
+ box-shadow:0 0 10px pink;
+}
+
+button{
+ padding:10px 20px;
+ margin:10px;
+ border:none;
+ border-radius:15px;
+ font-size:18px;
+ cursor:pointer;
+}
+
+.yes{ background:#ff4d79; color:white; }
+.no{ background:#ccc; }
+
+#finalSection, #q2, #q3, #q4, #q5{ display:none; }
+
+h1{
+ color:#b71c1c;
+ animation:glow 1.5s infinite alternate;
+}
+
+/* Floating hearts */
+.heart{
+ position:absolute;
+ bottom:-50px;
+ font-size:30px;
+ animation:floatUp 6s linear infinite;
+}
+
+@keyframes glow{
+ from{text-shadow:0 0 5px pink;}
+ to{text-shadow:0 0 20px red;}
+}
+
+@keyframes floatUp{
+ from{transform:translateY(0);opacity:1;}
+ to{transform:translateY(-900px);opacity:0;}
+}
+</style>
+</head>
+
+<body>
+
+<!-- START SCREEN -->
+<div id="startScreen" style="
+position:fixed;
+top:0; left:0;
+width:100%; height:100%;
+background:linear-gradient(120deg,#ffdde1,#ee9ca7,#fbc2eb);
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+z-index:1000;">
+<h1>Miss Fiction 💕</h1>
+<p style="font-size:20px;">Tap the heart to enter…</p>
+<button onclick="startSite()" 
+style="font-size:60px;background:none;border:none;cursor:pointer;">
+💖
+</button>
+</div>
+
+<audio id="bgMusic" loop>
+<source src="wanna-be-yours.mp3" type="audio/mpeg">
+</audio>
+
+<div class="container">
+
+<!-- QUESTION 1 -->
+<div id="q1" class="question-box">
+<h2>Question 1 💭</h2>
+<p>Do you think I care about you?</p>
+<button class="yes" onclick="nextQ(1,false)">Yes</button>
+<button class="no" onclick="nextQ(1,true)">Maybe</button>
+</div>
+
+<!-- QUESTION 2 -->
+<div id="q2" class="question-box">
+<h2>Question 2 💭</h2>
+<p>Do you believe I like you?</p>
+<button class="yes" onclick="nextQ(2,false)">Yes</button>
+<button class="no" onclick="nextQ(2,true)">A little</button>
+</div>
+
+<!-- QUESTION 3 -->
+<div id="q3" class="question-box">
+<h2>Question 3 💭</h2>
+<p>Do you feel special when I talk to you?</p>
+<button class="yes" onclick="nextQ(3,false)">Always</button>
+<button class="no" onclick="nextQ(3,true)">Sometimes</button>
+</div>
+
+<!-- SUNDAY DATE QUESTION -->
+<div id="q4" class="question-box">
+<h2>Special Question 💖</h2>
+<p>Will you go on a date with me this coming Sunday?</p>
+<button class="yes" onclick="showTextBox()">Yes, let’s go 😍</button>
+<button class="no" onclick="showTextBox()">Maybe…</button>
+</div>
+
+<!-- HER MESSAGE BOX -->
+<div id="q5" class="question-box">
+<h2>One last thing 💌</h2>
+<p>Write something sweet for me:</p>
+<textarea id="herMsg" rows="4" style="width:90%; padding:10px;"></textarea>
+<br><br>
+<button class="yes" onclick="saveMessage()">Send & Continue 💕</button>
+</div>
+
+<!-- FINAL VALENTINE SECTION -->
+<div id="finalSection">
+<h2>You passed the love test 😍</h2>
+<h2>Now answer seriously…</h2>
+<h1>Will you be my Valentine, Miss Fiction? 💗</h1>
+<button class="yes" onclick="yesClicked()">Yes — Lifetime 😍</button>
+<button class="no" onclick="noClicked()">No 😅</button>
+
+<p id="message" style="font-size:22px;color:#d63384;"></p>
+</div>
+
+<script>
+let lowAnswer = false;
+let herMessage = "";
+
+// START SCREEN FUNCTION
+function startSite(){
+ document.getElementById("startScreen").style.display="none";
+ document.getElementById("bgMusic").play();
+}
+
+// QUESTION FUNCTIONS
+function nextQ(n, isLow){
+ if(isLow) lowAnswer = true;
+ document.getElementById("q"+n).style.display="none";
+ document.getElementById("q"+(n+1)).style.display="block";
+}
+
+// SHOW HER TEXT BOX
+function showTextBox(){
+ document.getElementById("q4").style.display="none";
+ document.getElementById("q5").style.display="block";
+}
+
+// SAVE HER MESSAGE AND SHOW FINAL
+function saveMessage(){
+ herMessage = document.getElementById("herMsg").value;
+ document.getElementById("q5").style.display="none";
+ document.getElementById("finalSection").style.display="block";
+}
+
+// FINAL YES / NO
+function yesClicked(){
+ document.getElementById("message").innerHTML =
+ "🎉 SUBSCRIPTION ACTIVATED 🎉<br>" +
+ "Miss Fiction, you are my lifetime love 💗✨<br>" +
+ "See you this Sunday 😉<br><br>" +
+ "💌 Her message to you:<br>“" + herMessage + "”";
+}
+
+function noClicked(){
+ if(lowAnswer){
+   document.getElementById("message").innerHTML =
+   "No problem, Miss Fiction…<br>" +
+   "I will love you until my last breath ❤️<br><br>" +
+   "💌 Her message to you:<br>“" + herMessage + "”";
+ } else {
+   document.getElementById("message").innerHTML =
+   "Error 404: 'No' not supported 😜 Try again!<br><br>" +
+   "💌 Her message to you:<br>“" + herMessage + "”";
+ }
+}
+
+// floating hearts
+function createHeart(){
+ const h=document.createElement("div");
+ h.innerHTML="💖";
+ h.className="heart";
+ h.style.left=Math.random()*window.innerWidth+"px";
+ document.body.appendChild(h);
+ setTimeout(()=>h.remove(),6000);
+}
+setInterval(createHeart,500);
+</script>
+
+</body>
+</html>
